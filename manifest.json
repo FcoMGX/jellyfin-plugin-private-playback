@@ -1,0 +1,20 @@
+[
+  {
+    "category": "General",
+    "guid": "bb23ffd1-026a-4598-8133-e77ae50ccad7",
+    "name": "Private Playback",
+    "description": "An unofficial Jellyfin plugin providing configurable per-user playback privacy. It can prevent selected playback state such as resume progress, watched state and playback history from being persisted.",
+    "owner": "FcoMGX",
+    "overview": "Per-user private playback policies for Jellyfin.",
+    "versions": [
+      {
+        "checksum": "79aa15789355d1f9be5b33a81a2b08aa",
+        "changelog": "Initial beta release for Jellyfin 10.11.11 with per-user privacy policies, server-side playback-state protection, existing-data cleanup and nine dashboard localisations.",
+        "targetAbi": "10.11.11.0",
+        "sourceUrl": "https://github.com/FcoMGX/jellyfin-plugin-private-playback/releases/download/v0.9.0/private-playback_0.9.0.0.zip",
+        "timestamp": "2026-08-10T23:15:52Z",
+        "version": "0.9.0.0"
+      }
+    ]
+  }
+]
