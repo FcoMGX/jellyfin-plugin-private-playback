@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.PrivatePlayback", "src/Jellyfin.Plugin.PrivatePlayback/Jellyfin.Plugin.PrivatePlayback.csproj", "{9A4D1482-BE6F-45B5-8F01-15D1475D8DB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jellyfin.Plugin.PrivatePlayback.Tests", "tests/Jellyfin.Plugin.PrivatePlayback.Tests/Jellyfin.Plugin.PrivatePlayback.Tests.csproj", "{17CDD70D-C9A2-492E-BC34-589D722E6E90}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A4D1482-BE6F-45B5-8F01-15D1475D8DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4D1482-BE6F-45B5-8F01-15D1475D8DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4D1482-BE6F-45B5-8F01-15D1475D8DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4D1482-BE6F-45B5-8F01-15D1475D8DB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17CDD70D-C9A2-492E-BC34-589D722E6E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CDD70D-C9A2-492E-BC34-589D722E6E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CDD70D-C9A2-492E-BC34-589D722E6E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CDD70D-C9A2-492E-BC34-589D722E6E90}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

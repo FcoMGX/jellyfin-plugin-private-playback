@@ -1,0 +1,56 @@
+name: SonarQube
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.316
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Require configured SonarQube credentials
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: test -n "$SONAR_HOST_URL" && test -n "$SONAR_TOKEN"
+      - name: Restore dependencies and scanner
+        run: |
+          dotnet restore PrivatePlayback.sln --locked-mode
+          dotnet tool restore
+      - name: Begin SonarQube analysis
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >-
+          dotnet tool run dotnet-sonarscanner begin
+          /k:"private-playback"
+          /d:sonar.host.url="$SONAR_HOST_URL"
+          /d:sonar.token="$SONAR_TOKEN"
+          /d:sonar.qualitygate.wait=true
+          /d:sonar.cs.vstest.reportsPaths="artifacts/test-results/*.trx"
+          /d:sonar.cs.opencover.reportsPaths="artifacts/test-results/**/coverage.opencover.xml"
+      - name: Build and test under scanner
+        run: |
+          dotnet build PrivatePlayback.sln --configuration Release --no-incremental --no-restore
+          dotnet test PrivatePlayback.sln --configuration Release --no-build \
+            --collect "XPlat Code Coverage" \
+            --settings tests/coverage.runsettings \
+            --results-directory artifacts/test-results \
+            --logger "trx;LogFileName=unit-tests.trx"
+      - name: End SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet tool run dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"

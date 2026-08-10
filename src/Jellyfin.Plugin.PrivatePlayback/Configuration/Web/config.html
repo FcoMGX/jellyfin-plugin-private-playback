@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <title>Private Playback</title>
+</head>
+<body>
+    <div id="privatePlaybackConfigurationPage"
+         data-role="page"
+         class="page type-interior pluginConfigurationPage"
+         data-require="emby-button,emby-checkbox,emby-select"
+         data-controller="__plugin/Private Playback.js">
+        <div data-role="content">
+            <div class="content-primary">
+                <h2 data-i18n="Title">Private Playback</h2>
+                <p data-i18n="Intro"></p>
+
+                <div class="verticalSection">
+                    <h3 data-i18n="StatusTitle"></h3>
+                    <p id="privatePlaybackStatus" role="status"></p>
+                    <p id="privatePlaybackStatusReason" class="fieldDescription"></p>
+                </div>
+
+                <form id="privatePlaybackConfigurationForm">
+                    <div id="privatePlaybackUsers"></div>
+                    <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                        <span data-i18n="Save"></span>
+                    </button>
+                </form>
+
+                <div class="verticalSection">
+                    <h3 data-i18n="LimitationTitle"></h3>
+                    <p data-i18n="LimitationText"></p>
+                </div>
+            </div>
+        </div>
+
+        <template id="privatePlaybackUserTemplate">
+            <div class="verticalSection privatePlaybackUser" data-user-id="">
+                <h3 data-name="userName"></h3>
+                <p data-name="missingUser" class="fieldDescription hide" data-i18n="UserMissing"></p>
+                <div class="selectContainer">
+                    <label class="selectLabel" data-name="modeLabel" data-i18n="ModeLabel"></label>
+                    <select is="emby-select" data-name="mode" class="emby-select-withcolor emby-select">
+                        <option value="0" data-i18n="ModeNormal"></option>
+                        <option value="1" data-i18n="ModePrivate"></option>
+                        <option value="2" data-i18n="ModeCustom"></option>
+                    </select>
+                    <div data-name="modeDescription" class="fieldDescription"></div>
+                </div>
+                <div data-name="customOptions" class="hide">
+                    <label class="checkboxContainer checkboxContainer-withDescription">
+                        <input is="emby-checkbox" type="checkbox" data-name="rememberProgress">
+                        <span data-i18n="RememberProgress"></span>
+                        <span class="fieldDescription checkboxFieldDescription" data-i18n="RememberProgressHelp"></span>
+                    </label>
+                    <label class="checkboxContainer checkboxContainer-withDescription">
+                        <input is="emby-checkbox" type="checkbox" data-name="rememberWatched">
+                        <span data-i18n="RememberWatched"></span>
+                        <span class="fieldDescription checkboxFieldDescription" data-i18n="RememberWatchedHelp"></span>
+                    </label>
+                    <label class="checkboxContainer checkboxContainer-withDescription">
+                        <input is="emby-checkbox" type="checkbox" data-name="recordHistory">
+                        <span data-i18n="RecordHistory"></span>
+                        <span class="fieldDescription checkboxFieldDescription" data-i18n="RecordHistoryHelp"></span>
+                    </label>
+                </div>
+                <div data-name="cleanup" class="verticalSection">
+                    <h4 data-i18n="CleanupTitle"></h4>
+                    <p class="fieldDescription" data-i18n="CleanupWarning"></p>
+                    <button is="emby-button" type="button" class="raised emby-button" data-name="preview">
+                        <span data-i18n="Preview"></span>
+                    </button>
+                    <button is="emby-button" type="button" class="raised button-delete emby-button" data-name="clear">
+                        <span data-i18n="Clear"></span>
+                    </button>
+                    <p data-name="cleanupResult" role="status"></p>
+                </div>
+            </div>
+        </template>
+    </div>
+</body>
+</html>
+

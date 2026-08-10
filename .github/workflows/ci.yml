@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test-package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.316
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+      - name: Restore locked dependencies
+        run: dotnet restore PrivatePlayback.sln --locked-mode
+      - name: Verify resources, JavaScript, shell and secret patterns
+        run: ./scripts/verify.sh
+      - name: Verify C# whitespace
+        run: dotnet format whitespace --folder . --verify-no-changes
+      - name: Build Release with analyzers
+        run: dotnet build PrivatePlayback.sln --configuration Release --no-restore
+      - name: Run unit tests and collect coverage
+        run: >-
+          dotnet test PrivatePlayback.sln --configuration Release --no-build
+          --collect "XPlat Code Coverage"
+          --settings tests/coverage.runsettings
+          --results-directory artifacts/test-results
+          --logger "trx;LogFileName=unit-tests.trx"
+      - name: Audit direct and transitive packages
+        run: dotnet list PrivatePlayback.sln package --vulnerable --include-transitive
+      - name: Package reproducibly
+        run: ./scripts/package.sh
+      - name: Upload build evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: private-playback-${{ github.sha }}
+          path: |
+            artifacts/private-playback_0.9.0.0.zip
+            artifacts/private-playback_0.9.0_source.zip
+            artifacts/SHA256SUMS
+            artifacts/test-results
+
+  jellyfin-10-11-11-integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.316
+      - name: Restore and build
+        run: |
+          dotnet restore PrivatePlayback.sln --locked-mode
+          dotnet build PrivatePlayback.sln --configuration Release --no-restore
+          ./scripts/package.sh
+      - name: Download exact Jellyfin portable server
+        run: |
+          mkdir -p .ci
+          curl --fail --location --retry 3 --output .ci/jellyfin.tar.gz \
+            https://repo.jellyfin.org/files/server/linux/latest-stable/amd64/jellyfin_10.11.11-amd64.tar.gz
+          echo '9f7f194a7e37777cfde0d107c088fc47e81c7904440046ac0ceb7a289546cf79  .ci/jellyfin.tar.gz' | sha256sum --check
+          tar -xzf .ci/jellyfin.tar.gz -C .ci
+      - name: Install ZIP and run isolated integration matrix
+        run: >-
+          JELLYFIN_BIN_DIR="$PWD/.ci/jellyfin"
+          PRIVATE_PLAYBACK_PLUGIN_ZIP="$PWD/artifacts/private-playback_0.9.0.0.zip"
+          ./scripts/integration-test.sh

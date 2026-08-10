@@ -1,0 +1,186 @@
+# ============================================================
+# Private Playback - Git ignore rules
+# ============================================================
+
+# ------------------------------------------------------------
+# macOS
+# ------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# macOS resource forks / metadata
+*.icloud
+
+# ------------------------------------------------------------
+# Windows
+# ------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ------------------------------------------------------------
+# Linux
+# ------------------------------------------------------------
+*~
+.directory
+.Trash-*
+
+# ------------------------------------------------------------
+# .NET / C# build output
+# ------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+artifacts/
+publish/
+out/
+
+# Build configurations
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+
+# .NET generated files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.dll.config
+*.deps.json
+*.runtimeconfig.json
+
+# NuGet generated/restored content
+packages/
+.nuget/
+*.nupkg
+*.snupkg
+
+# IMPORTANT:
+# packages.lock.json IS intentionally committed and is NOT ignored.
+
+# ------------------------------------------------------------
+# Test results / code coverage
+# ------------------------------------------------------------
+TestResults/
+test-results/
+coverage/
+coverage-report/
+coverage-results/
+
+*.trx
+*.coverage
+*.coveragexml
+*.coverage.json
+coverage*.xml
+coverage*.json
+coverage*.info
+lcov.info
+
+# ------------------------------------------------------------
+# SonarQube / SonarScanner
+# ------------------------------------------------------------
+.sonarqube/
+.scannerwork/
+.sonar/
+sonar-report/
+sonar-reports/
+
+# ------------------------------------------------------------
+# Visual Studio
+# ------------------------------------------------------------
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# ------------------------------------------------------------
+# Visual Studio Code
+# ------------------------------------------------------------
+.vscode/
+
+# ------------------------------------------------------------
+# JetBrains Rider / ReSharper
+# ------------------------------------------------------------
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# ------------------------------------------------------------
+# Node.js / npm
+# ------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Keep package.json if used by the project's web tests.
+# package-lock.json / yarn.lock / pnpm-lock.yaml should normally
+# be committed if they are introduced intentionally.
+
+# ------------------------------------------------------------
+# Temporary files
+# ------------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.rej
+*.swp
+*.swo
+*.pid
+*.log
+
+tmp/
+temp/
+
+# ------------------------------------------------------------
+# Archives generated locally
+# ------------------------------------------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# ------------------------------------------------------------
+# Local environment / secrets
+# ------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ------------------------------------------------------------
+# Local IDE / editor history
+# ------------------------------------------------------------
+.history/
+.local/
+.cache/
+
+# ------------------------------------------------------------
+# Generated Private Playback packages
+# ------------------------------------------------------------
+private-playback_*.zip
+SHA256SUMS.local
