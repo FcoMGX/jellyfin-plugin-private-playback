@@ -4,6 +4,17 @@ set -euo pipefail
 project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$project_root"
 
+require_command() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        printf 'Required command not found: %s\n' "$1" >&2
+        exit 127
+    fi
+}
+
+for command_name in bash jq node rg; do
+    require_command "$command_name"
+done
+
 while IFS= read -r json_file; do
     jq empty "$json_file"
 done < <(rg --files -g '*.json' -g '!**/bin/**' -g '!**/obj/**' -g '!artifacts/**' | sort)

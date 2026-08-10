@@ -19,6 +19,10 @@ jobs:
           dotnet-version: 9.0.316
           cache: true
           cache-dependency-path: '**/packages.lock.json'
+      - name: Install verification dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ripgrep
       - name: Restore locked dependencies
         run: dotnet restore PrivatePlayback.sln --locked-mode
       - name: Verify resources, JavaScript, shell and secret patterns
@@ -56,6 +60,10 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.316
+      - name: Install integration dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
       - name: Restore and build
         run: |
           dotnet restore PrivatePlayback.sln --locked-mode

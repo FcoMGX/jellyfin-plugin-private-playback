@@ -3,7 +3,15 @@ set -euo pipefail
 
 project_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 jellyfin_bin_dir=${JELLYFIN_BIN_DIR:?Set JELLYFIN_BIN_DIR to the extracted Jellyfin binary directory.}
-ffmpeg_path=${FFMPEG_PATH:-/usr/bin/ffmpeg}
+if [[ -n "${FFMPEG_PATH:-}" ]]; then
+    ffmpeg_path="$FFMPEG_PATH"
+else
+    ffmpeg_path=$(command -v ffmpeg || true)
+fi
+[[ -n "$ffmpeg_path" && -x "$ffmpeg_path" ]] || {
+    printf 'FFmpeg was not found. Install FFmpeg or set FFMPEG_PATH.\n' >&2
+    exit 127
+}
 plugin_zip=${PRIVATE_PLAYBACK_PLUGIN_ZIP:-}
 test_root=${PRIVATE_PLAYBACK_TEST_ROOT:-$(mktemp -d)}
 base_url=http://127.0.0.1:8096
