@@ -9,7 +9,7 @@ description: >
   Prevents selected Jellyfin users from persisting configured playback state.
   This is an independent, unofficial community plugin.
 category: "General"
-owner: "Independent community plugin"
+owner: "FcoMGX"
 artifacts:
   - "Jellyfin.Plugin.PrivatePlayback.dll"
 changelog: >

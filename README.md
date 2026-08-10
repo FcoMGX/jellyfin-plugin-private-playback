@@ -41,15 +41,47 @@ No outbound service, external database or runtime dependency is added by the ins
 
 ## Installation
 
-1. Verify the ZIP against `SHA256SUMS`.
-2. Stop Jellyfin.
-3. Create a dedicated directory below Jellyfin's data-directory plugin path, for example `plugins/Private Playback_0.9.0.0`.
-4. Extract `private-playback_0.9.0.0.zip` into that directory. The DLL and `meta.json` must be directly inside it.
-5. Start Jellyfin.
-6. Open **Dashboard → Plugins → Private Playback**.
-7. Confirm that **Protection is active** and the detected server version is `10.11.11.0` before assigning any private policy.
+### Recommended: Jellyfin plugin repository
 
-If the status is inactive, the plugin intentionally leaves every user on normal Jellyfin behaviour. Read the displayed reason and the Jellyfin log; do not assume protection.
+1. Open **Dashboard → Plugins → Repositories**.
+2. Select **Add Repository**.
+3. Enter the following values:
+
+   **Repository name**
+
+   ```text
+   Private Playback
+   ```
+
+   **Repository URL**
+
+   ```text
+   https://raw.githubusercontent.com/FcoMGX/jellyfin-plugin-private-playback/main/manifest.json
+   ```
+
+4. Save the repository.
+5. Open **Dashboard → Plugins → Catalog**.
+6. Find **Private Playback** and select **Install**.
+7. Restart Jellyfin when prompted.
+8. Open **Dashboard → Plugins → Private Playback**.
+9. Confirm that **Protection is active** before assigning any private policy.
+
+> **Compatibility:** Private Playback 0.9.0 is a beta currently validated only for Jellyfin Server 10.11.11.
+
+### Manual installation
+
+Manual installation remains available as a fallback:
+
+1. Download `private-playback_0.9.0.0.zip` and `SHA256SUMS` from the GitHub Release.
+2. Verify the archive against `SHA256SUMS`.
+3. Stop Jellyfin.
+4. Create a dedicated directory below Jellyfin's plugin path, for example `plugins/Private Playback_0.9.0.0`.
+5. Extract `private-playback_0.9.0.0.zip` into that directory. The DLL and `meta.json` must be directly inside it.
+6. Start Jellyfin.
+7. Open **Dashboard → Plugins → Private Playback**.
+8. Confirm that **Protection is active** and that the detected server version is `10.11.11.0`.
+
+If protection is inactive, the plugin intentionally leaves users on normal Jellyfin behaviour. Read the displayed reason and the Jellyfin log before relying on the private policy.
 
 ## Configuration
 
