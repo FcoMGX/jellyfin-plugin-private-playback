@@ -18,13 +18,40 @@ Otros complementos como Playback Reporting, Webhook o Trakt pueden registrar eve
 
 ## Instalación
 
-1. Comprueba `private-playback_0.9.0.0.zip` con `SHA256SUMS`.
-2. Detén Jellyfin.
-3. Crea `plugins/Private Playback_0.9.0.0` bajo el directorio de datos de Jellyfin.
-4. Extrae el ZIP directamente ahí; deben quedar la DLL y `meta.json` en la raíz de esa carpeta.
-5. Inicia Jellyfin.
-6. Abre **Panel de control → Plugins → Private Playback**.
-7. Confirma **Protección activa** y versión `10.11.11.0`.
+### Método recomendado: repositorio de plugins de Jellyfin
+
+1. Abre **Panel de control → Plugins → Repositorios**.
+2. Añade un repositorio con estos datos:
+
+   **Nombre**
+
+   ```text
+   Private Playback
+   ```
+
+   **URL**
+
+   ```text
+   https://raw.githubusercontent.com/FcoMGX/jellyfin-plugin-private-playback/main/manifest.json
+   ```
+
+3. Guarda el repositorio.
+4. Abre el catálogo de plugins.
+5. Busca **Private Playback** e instálalo.
+6. Reinicia Jellyfin cuando se solicite.
+7. Abre **Panel de control → Plugins → Private Playback**.
+8. Confirma **Protección activa** y versión del servidor `10.11.11.0` antes de confiar en una política privada.
+
+### Instalación manual alternativa
+
+1. Descarga `private-playback_0.9.0.0.zip` y `SHA256SUMS` desde la Release `v0.9.0` de GitHub.
+2. Comprueba el ZIP con `SHA256SUMS`.
+3. Detén Jellyfin.
+4. Crea `plugins/Private Playback_0.9.0.0` bajo el directorio de plugins de Jellyfin.
+5. Extrae el ZIP directamente ahí; la DLL y `meta.json` deben quedar en la raíz de esa carpeta.
+6. Inicia Jellyfin.
+7. Abre **Panel de control → Plugins → Private Playback**.
+8. Confirma **Protección activa** y versión `10.11.11.0`.
 
 Si el estado está inactivo, todos los usuarios conservan el comportamiento normal de Jellyfin. No des por supuesta la privacidad.
 
